@@ -393,6 +393,31 @@ Suggested minimum:
 
 ---
 
+## Checklist: Implementation Quality, Testing, Documentation
+
+This concise checklist helps keep PRs and implementations consistent and review-ready.
+
+- **Implementation Quality:**
+  - Keep route handlers thin; place business logic in service modules.
+  - Validate inputs and return clear, standard JSON error responses.
+  - Prefer small, focused commits with descriptive messages.
+  - Add brief inline notes for non-obvious business rules.
+
+- **Testing:**
+  - Add unit tests for core business rules (PO allocation, status transitions).
+  - Add route-level tests covering validation and error paths.
+  - Provide one Playwright E2E smoke test for the PO happy path (PR -> PO create -> submit).
+  - Ensure tests are deterministic and runnable via `npm test`/CI.
+
+- **Documentation Discipline:**
+  - Update `docs/plan.md` and API docs when changing endpoints or contracts.
+  - Include README snippets for setup changes or extra env vars.
+  - Document migration intent and schema changes inside migration files.
+  - Add short usage notes in PR descriptions to aid reviewers.
+
+- **Acceptance:**
+  - Checklist satisfied when tests added and passing, docs updated, and PR notes include testing steps.
+
 ## 8) Local Run Baseline
 
 ### Docker
