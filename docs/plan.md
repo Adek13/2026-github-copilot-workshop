@@ -15,7 +15,7 @@ Workshop implementation strategy:
 1. Core schema migration + sample seed are pre-provided in repository and bootstrapped via Docker init for participants.
 2. Home/Dashboard + PR module (list/create/detail + PR APIs) are prebuilt and working.
 3. Participant backlog focus is PO module only (PO list/create/detail + PO APIs + PO validations).
-4. GR module is not implemented during workshop and is left for further exploration.
+4. GR module is implemented as further exploration backlog: GR list, create (from PO open lines), detail pages + GR APIs + GR validations.
 5. Bookmark feature is post-backlog and practiced via GitHub Issue-driven development.
 6. DB bootstrap is prepared for Windows/macOS/Linux hosts by using POSIX `sh` init script + LF normalization for `.sh` and `.sql` files.
 
@@ -145,11 +145,12 @@ Workshop status: prebuilt in baseline.
 Workshop status: participant implementation backlog (primary focus).
 
 ### Goods Receipt
+- `GET /api/goods-receipts`
 - `POST /api/goods-receipts`
 - `POST /api/goods-receipts/:id/post`
 - `GET /api/goods-receipts/:id`
 
-Workshop status: out of implementation scope (further exploration).
+Workshop status: further exploration backlog (GR list/create/detail + GR APIs + GR validations). Source lines from `GET /api/purchase-orders/:id/open-lines`.
 
 ---
 
@@ -378,18 +379,21 @@ erDiagram
 ### Hour 5 — Optional Extension + Exploration
 - Implement Bookmark feature from GitHub Issue (optional, post-backlog)
 - Demo completed PO backlog
-- GR module left as self-paced exploration using this plan
+- GR module: implement GR list/create/detail pages + GR APIs + over-receipt validation as self-paced exploration
 
 ---
 
 ## 7) Testing Strategy
 - Jest for service-level and route validation tests
-- Playwright for PO-focused end-to-end journey on top of baseline PR
+- Playwright for end-to-end journey on top of baseline PR and PO
 
 Suggested minimum:
-1. Jest: reject over-allocation
+1. Jest: reject over-allocation (PO)
 2. Jest: reject invalid PO status transition
-3. Playwright: PR baseline data -> PO create -> PO submit -> PO detail assertions
+3. Jest: reject over-receipt (GR)
+4. Jest: reject invalid GR status transition (POSTED -> POSTED)
+5. Playwright: PR baseline data -> PO create -> PO submit -> PO detail assertions
+6. Playwright (GR): navigate from Dashboard -> GR list -> create GR from submitted PO -> verify GR in list -> post GR
 
 ---
 
@@ -461,4 +465,9 @@ VITE_API_BASE_URL=http://localhost:3000
 - PO backlog is implemented (PO list/create/detail + required PO endpoints)
 - PO quantity validations are enforced
 - Jest and Playwright each run at least one PO-focused meaningful test
+- GR backlog is implemented (GR list/create/detail + required GR endpoints)
+- GR over-receipt validation is enforced (qty_received <= po_line open qty)
+- GR status transition enforced (DRAFT -> POSTED only)
+- Dashboard and navbar include navigation entry to GR module
+- Jest and Playwright each run at least one GR-focused meaningful test
 - Bookmark feature is captured as a GitHub Issue (or implemented if time allows)
