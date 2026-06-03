@@ -63,6 +63,12 @@ Reference plan: `docs/plan.md`.
 When there is a trade-off between production robustness and workshop clarity, choose workshop clarity.
 
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+For GR module implementation plan, reference: `specs/001-gr-module/plan.md`
+
+**Plan Artifacts**:
+- `specs/001-gr-module/spec.md` — User stories and requirements
+- `specs/001-gr-module/research.md` — Technical decisions and rationale
+- `specs/001-gr-module/data-model.md` — Entity definitions, validations, queries
+- `specs/001-gr-module/quickstart.md` — Setup and implementation workflow
+- `specs/001-gr-module/contracts/` — API endpoint specifications (create, post, get, open-lines)
 <!-- SPECKIT END -->
