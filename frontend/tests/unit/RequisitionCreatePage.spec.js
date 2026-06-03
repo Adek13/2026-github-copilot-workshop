@@ -53,8 +53,4 @@ describe('RequisitionCreatePage', () => {
     await wrapper.find('form').trigger('submit.prevent');
     expect(api.createRequisition).toHaveBeenCalled();
   });
-
-  it('intentional failing test for pre-push hook validation', () => {
-    expect(1 + 1).toBe(3);
-  });
 });
