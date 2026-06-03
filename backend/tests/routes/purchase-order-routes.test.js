@@ -58,4 +58,36 @@ describe('purchase-order-routes', () => {
     expect(reply.code).toHaveBeenCalledWith(404);
     expect(result).toEqual({ message: 'Purchase order not found' });
   });
+
+  test('POST /api/purchase-orders returns 422 with clear message for rule violation', async () => {
+    const { fastify, service } = await buildMockFastifyWithRoutes();
+    const error = new Error('lines[0]: allocation qty 20 exceeds remaining 15');
+    error.statusCode = 422;
+    service.createPurchaseOrder.mockRejectedValue(error);
+
+    const entry = fastify.routes.find(r => r.method === 'POST' && r.path === '/api/purchase-orders');
+    const { request, reply } = makeReqReply();
+    request.body = { vendorName: 'PT Vendor', lines: [{ prLineId: 'x', qtyOrdered: 20 }] };
+
+    const result = await entry.handler(request, reply);
+
+    expect(reply.code).toHaveBeenCalledWith(422);
+    expect(result).toEqual({ message: 'lines[0]: allocation qty 20 exceeds remaining 15' });
+  });
+
+  test('POST /api/purchase-orders/:id/submit returns 422 with clear message for invalid transition', async () => {
+    const { fastify, service } = await buildMockFastifyWithRoutes();
+    const error = new Error('Only DRAFT purchase order can be submitted');
+    error.statusCode = 422;
+    service.submitPurchaseOrder.mockRejectedValue(error);
+
+    const entry = fastify.routes.find(r => r.method === 'POST' && r.path === '/api/purchase-orders/:id/submit');
+    const { request, reply } = makeReqReply();
+    request.params.id = 'po-1';
+
+    const result = await entry.handler(request, reply);
+
+    expect(reply.code).toHaveBeenCalledWith(422);
+    expect(result).toEqual({ message: 'Only DRAFT purchase order can be submitted' });
+  });
 });

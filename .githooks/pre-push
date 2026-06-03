@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Block git push when tests fail.
+echo "[pre-push] Running npm test..."
+
+npm test
+status=$?
+
+if [ $status -ne 0 ]; then
+  echo "[pre-push] Tests failed. Push aborted."
+  exit 1
+fi
+
+echo "[pre-push] Tests passed. Proceeding with push."
+exit 0

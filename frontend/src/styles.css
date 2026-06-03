@@ -1,17 +1,27 @@
 /* ===== Design tokens from Figma ===== */
 :root {
-  --primary: #ff4081;
-  --primary-light: #ff80ab;
-  --gradient: linear-gradient(124deg, #ff4081 0%, #fdb702 100%);
-  --bg: #f6f6f6;
-  --white: #ffffff;
-  --text: #222222;
-  --text-muted: #888888;
-  --border: #dddddd;
-  --table-header: #f3f3f3;
+  --primary: #FF4081;
+  --primary-hover: #E91E63;
+  --secondary: #FDB702;
+  --secondary-hover: #FDA902;
+  --black: #212121;
+  --white: #FFFFFF;
+  --gray: rgba(33, 33, 33, 0.6);
+  --light-gray: #C9C8D3;
+  --grey: #8A8894;
+  
+  /* Aliases for consistency */
+  --text: var(--black);
+  --text-muted: var(--grey);
+  --bg: #F6F6F6;
+  --border: #E0E0E0;
+  --table-header: #F3F3F3;
+  
+  /* Radius tokens */
   --radius-card: 15px;
   --radius-input: 8px;
   --radius-btn: 24px;
+  
   font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
   color: var(--text);
   background: var(--bg);
@@ -40,6 +50,18 @@ a { color: var(--primary); text-decoration: none; }
   top: 0;
   z-index: 100;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.navbar-po {
+  justify-content: flex-start;
+  box-shadow: none;
+}
+
+.navbar-logo {
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .navbar-brand {
@@ -76,6 +98,10 @@ a { color: var(--primary); text-decoration: none; }
 .content {
   padding: 32px 40px;
   flex: 1;
+}
+
+.content-po {
+  padding: 0;
 }
 
 /* ===== Page Header ===== */
